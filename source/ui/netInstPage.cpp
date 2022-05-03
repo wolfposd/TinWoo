@@ -255,7 +255,7 @@ namespace inst::ui {
           		this->startInstall(false);
           		return;
             }
-            this->startInstall(false);	
+            this->startInstall(false);
           } 
         }
         

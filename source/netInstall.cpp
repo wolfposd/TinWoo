@@ -289,7 +289,13 @@ namespace netInstStuff{
                 if (kDown & HidNpadButton_Minus) {
                     std::string url = inst::util::softwareKeyboard("inst.net.url.hint"_lang, inst::config::httpIndexUrl, 500);
                     inst::config::httpIndexUrl = url;
-                    inst::config::setConfig();
+                    if(url == "") {
+                    	url = "http://127.0.0.1";
+                    }
+                    
+                    else{
+                    	inst::config::setConfig();
+                    }
 
                     std::string response;
                     if (inst::util::formatUrlString(url) == "" || url == "https://" || url == "http://")
@@ -334,9 +340,12 @@ namespace netInstStuff{
                                 return urls;
                             LOG_DEBUG("Failed to parse games from HTML\n");
                         }
-                    } else
-                        LOG_DEBUG("Failed to fetch game list\n");
-                    inst::ui::mainApp->CreateShowDialog("inst.net.index_error"_lang, "inst.net.index_error_info"_lang, {"common.ok"_lang}, true);
+                    } 
+                    
+                    else {
+                    	LOG_DEBUG("Failed to fetch game list\n");
+                    	inst::ui::mainApp->CreateShowDialog("inst.net.index_error"_lang, "inst.net.index_error_info"_lang, {"common.ok"_lang}, true);
+                    }
                 }
 
                 struct sockaddr_in client;

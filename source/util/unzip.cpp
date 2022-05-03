@@ -6,7 +6,6 @@
 #include <switch.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <stdio.h>
 
 // https://github.com/AtlasNX/Kosmos-Updater/blob/master/source/FileManager.cpp
 
@@ -48,7 +47,7 @@ bool _makeDirectoryParents(std::string path)
                 //Done!
                 bSuccess = true;
                 break;
-                //std::string getHost("");
+                //std::string getHost();
             default:
                 bSuccess = false;
                 break;
