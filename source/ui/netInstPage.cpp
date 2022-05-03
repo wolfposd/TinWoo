@@ -95,15 +95,19 @@ namespace inst::ui {
 
     void netInstPage::startNetwork() {
         this->butText->SetText("inst.net.buttons"_lang);
+        //this->butText->SetText("inst.net.buttons"_lang + "    \ue0f0 Install From HTTP Directory");
         this->menu->SetVisible(false);
         this->menu->ClearItems();
         this->infoImage->SetVisible(true);
         mainApp->LoadLayout(mainApp->netinstPage);
         this->ourUrls = netInstStuff::OnSelected();
+        
         if (!this->ourUrls.size()) {
             mainApp->LoadLayout(mainApp->mainPage);
             return;
-        } else if (this->ourUrls[0] == "supplyUrl") {
+        } 
+        
+        else if (this->ourUrls[0] == "supplyUrl") {
             std::string keyboardResult;
             switch (mainApp->CreateShowDialog("inst.net.src.title"_lang, "common.cancel_desc"_lang, {"inst.net.src.opt0"_lang, "inst.net.src.opt1"_lang}, false)) {
                 case 0:
@@ -139,6 +143,7 @@ namespace inst::ui {
         } else {
             mainApp->CallForRender(); // If we re-render a few times during this process the main screen won't flicker
             sourceString = "inst.net.source_string"_lang;
+            netConnected = true;
             this->pageInfoText->SetText("inst.net.top_info"_lang);
             this->butText->SetText("inst.net.buttons1"_lang);
             this->drawMenuItems(true);
@@ -177,7 +182,31 @@ namespace inst::ui {
         
         if  (hidGetTouchScreenStates(&state, 1)) {
           
-          if ((Down & HidNpadButton_A) || (state.count != xxx))
+          if (netConnected) {
+            if ((Down & HidNpadButton_A) || (state.count != xxx))
+            {
+                xxx = state.count;
+                
+                if (xxx != 1) {
+                	int var = this->menu->GetItems().size();
+              		auto s = std::to_string(var);
+              		//std::string s = ourUrlString; //debug stuff
+              		//this->appVersionText->SetText(s); //debug stuff
+              		
+              		if (s == "0") {
+              			//do nothing here because there's no items in the list, that way the app won't freeze
+                  }
+                  else {
+                  	this->selectTitle(this->menu->GetSelectedIndex());
+                  	if (this->menu->GetItems().size() == 1 && this->selectedUrls.size() == 1) {
+                  		this->startInstall(false);
+                    }
+                  }
+                }
+            }
+          }
+          
+          if ((Down & HidNpadButton_Minus) || (state.count != xxx))
           {
               xxx = state.count;
               
@@ -229,5 +258,11 @@ namespace inst::ui {
             this->startInstall(false);	
           } 
         }
+        
+        if (Down & HidNpadButton_ZL)
+        	this->menu->SetSelectedIndex(std::max(0, this->menu->GetSelectedIndex() - 6));
+        
+        if (Down & HidNpadButton_ZR)
+        	this->menu->SetSelectedIndex(std::min((s32)this->menu->GetItems().size() - 1, this->menu->GetSelectedIndex() + 6));
     }
 }
