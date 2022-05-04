@@ -247,7 +247,7 @@ namespace netInstStuff{
                 {
                     THROW_FORMAT("Server socket failed to initialize.\n");
                     close(m_serverSocket); //close if already open.
-                    m_serverSocket = 0; //reset sowe can try again.
+                    m_serverSocket = 0; //reset so we can try again.
                 }
             }
 
@@ -290,12 +290,13 @@ namespace netInstStuff{
                 
                 if (kDown & HidNpadButton_Minus) {
                     std::string url = inst::util::softwareKeyboard("inst.net.url.hint"_lang, inst::config::httpIndexUrl, 500);
-                    inst::config::httpIndexUrl = url;
                     if(url == "") {
                     	url = "http://127.0.0.1";
                     }
                     
-                    else{
+                    else {
+                    	
+                    	inst::config::httpIndexUrl = url;
                     	inst::config::setConfig();
                     
 
@@ -396,6 +397,8 @@ namespace netInstStuff{
         }
         catch (std::runtime_error& e)
         {
+        		close(m_serverSocket);
+            m_serverSocket = 0;
             LOG_DEBUG("Failed to perform remote install!\n");
             LOG_DEBUG("%s", e.what());
             fprintf(stdout, "%s", e.what());
