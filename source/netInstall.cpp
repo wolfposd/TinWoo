@@ -312,13 +312,16 @@ namespace netInstStuff{
                       if (!response.empty()) {
                           if (response[0] == '{')              
                               try {
-                                  nlohmann::json j = nlohmann::json::parse(response);
-                                  for (const auto &file : j["files"])
-                                      urls.push_back(file["url"]);
-                                  return urls;
-                              } catch (const nlohmann::detail::exception& ex) {
-                                  LOG_DEBUG("Failed to parse JSON\n");
+                              	nlohmann::json j = nlohmann::json::parse(response);
+                              	for (const auto &file : j["files"]) {
+                              		urls.push_back(file["url"]);
+                            		}
+                                return urls;
+                              } 
+                              catch (const nlohmann::detail::exception& ex) {
+                              	LOG_DEBUG("Failed to parse JSON\n");
                               }
+                          
                           else if (response[0] == '<') {
                               std::size_t index = 0;
                               while (index < response.size()) {
@@ -332,15 +335,26 @@ namespace netInstStuff{
                                       if (response[index] == '"') {
                                           if (link.find("../") == std::string::npos)
                                               if (link.find(".nsp") != std::string::npos || link.find(".nsz") != std::string::npos || link.find(".xci") != std::string::npos || link.find(".xcz") != std::string::npos)
-                                                  urls.push_back(url + link);
+                                                  urls.push_back(link);
                                           break;
                                       }
                                       link += response[index++];
                                   }
 
                               }
-                              if (urls.size() > 0)
-                                  return urls;
+                              if (urls.size() > 0){
+                              	/*
+                              	//debug
+                            		FILE * fp;
+                            		std::string debug = urls[0];
+                            		const char *info = debug.c_str();
+                            		fp = fopen ("debug.txt", "w+");
+                            		fprintf(fp, "%s", info);
+                            		fclose(fp);
+                            		*/
+                            		return urls;
+                              }
+                                  
                               LOG_DEBUG("Failed to parse games from HTML\n");
                           }
                       } 
