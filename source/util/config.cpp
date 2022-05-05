@@ -7,6 +7,7 @@ namespace inst::config {
     std::string gAuthKey;
     std::string sigPatchesUrl;
     std::string httpIndexUrl;
+    std::string httplastUrl;
     std::vector<std::string> updateInfo;
     int languageSetting;
     bool autoUpdate;
@@ -31,7 +32,8 @@ namespace inst::config {
             {"sigPatchesUrl", sigPatchesUrl},
             {"usbAck", usbAck},
             {"validateNCAs", validateNCAs},
-            {"httpIndexUrl", httpIndexUrl}
+            {"httpIndexUrl", httpIndexUrl},
+            {"httplastUrl", httplastUrl}
         };
         std::ofstream file(inst::config::configPath);
         file << std::setw(4) << j << std::endl;
@@ -52,6 +54,7 @@ namespace inst::config {
             overClock = j["overClock"].get<bool>();
             sigPatchesUrl = j["sigPatchesUrl"].get<std::string>();
             httpIndexUrl = j["httpIndexUrl"].get<std::string>();
+            httplastUrl = j["httplastUrl"].get<std::string>();
             usbAck = j["usbAck"].get<bool>();
             validateNCAs = j["validateNCAs"].get<bool>();
         }
@@ -61,6 +64,7 @@ namespace inst::config {
             sigPatchesUrl = "https://github.com/mrdude2478/patches/releases/download/1/patches.zip";
             languageSetting = 0;
             httpIndexUrl = "http://";
+            httplastUrl = "http://";
             autoUpdate = true;
             deletePrompt = true;
             gayMode = false;

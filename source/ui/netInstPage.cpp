@@ -16,7 +16,7 @@ namespace inst::ui {
     extern MainApplication *mainApp;
     s32 xxx=0;
 
-    std::string lastUrl = "https://";
+    std::string httplastUrl = "http://";
     std::string lastFileID = "";
     std::string sourceString = "";
 
@@ -111,9 +111,18 @@ namespace inst::ui {
             std::string keyboardResult;
             switch (mainApp->CreateShowDialog("inst.net.src.title"_lang, "common.cancel_desc"_lang, {"inst.net.src.opt0"_lang, "inst.net.src.opt1"_lang}, false)) {
                 case 0:
-                    keyboardResult = inst::util::softwareKeyboard("inst.net.url.hint"_lang, lastUrl, 500);
+                    keyboardResult = inst::util::softwareKeyboard("inst.net.url.hint"_lang, inst::config::httplastUrl, 500);
                     if (keyboardResult.size() > 0) {
-                        lastUrl = keyboardResult;
+                        httplastUrl = keyboardResult;
+                        
+                        if(keyboardResult == "") {
+                        	keyboardResult = "http://127.0.0.1";
+                        }
+                        else {
+                        	inst::config::httplastUrl = keyboardResult;
+                        	inst::config::setConfig();
+                        }
+                        
                         if (inst::util::formatUrlString(keyboardResult) == "" || keyboardResult == "https://" || keyboardResult == "http://") {
                             mainApp->CreateShowDialog("inst.net.url.invalid"_lang, "", {"common.ok"_lang}, false);
                             break;
