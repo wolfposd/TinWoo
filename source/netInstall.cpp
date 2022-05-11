@@ -316,6 +316,20 @@ namespace netInstStuff{
                               	for (const auto &file : j["files"]) {
                               		urls.push_back(file["url"]);
                             		}
+                            		
+                            		//debug scan http links
+                            		/*FILE * fp;
+                            		fp = fopen ("http link log.txt", "a+");
+                            		
+                            		for (unsigned long int i = 0; i < urls.size(); i++) {
+                            			std::string debug = urls[i];
+                            			const char *info = debug.c_str();
+                            			fprintf(fp, "%s\n", info);
+                            		}
+                            		fclose(fp);
+                            		*/
+                            		//end of debug
+                                
                                 return urls;
                               } 
                               catch (const nlohmann::detail::exception& ex) {
@@ -349,16 +363,22 @@ namespace netInstStuff{
 
                               }
                               if (urls.size() > 0){
+                              	
+                              	//debug scan http links
                               	/*
-                              	//debug
-                            		FILE * fp;
-                            		std::string debug = urls[0];
-                            		const char *info = debug.c_str();
-                            		fp = fopen ("debug.txt", "w+");
-                            		fprintf(fp, "%s", info);
+                              	FILE * fp;
+                            		fp = fopen ("http link log.txt", "a+");
+                            		
+                            		for (unsigned long int i = 0; i < urls.size(); i++) {
+                            			std::string debug = urls[i];
+                            			const char *info = debug.c_str();
+                            			fprintf(fp, "%s\n", info);
+                            		}
                             		fclose(fp);
                             		*/
-                            		return urls;
+                            		//end of debug
+                              	
+                              	return urls;
                               }
                                   
                               LOG_DEBUG("Failed to parse games from HTML\n");

@@ -29,8 +29,8 @@ namespace inst::ui {
         this->pageInfoText = TextBlock::New(10, 109, "");
         this->pageInfoText->SetFont(pu::ui::MakeDefaultFontName(30));
         this->pageInfoText->SetColor(COLOR("#FFFFFFFF"));
-        this->installInfoText = TextBlock::New(15, 648, "");
-        this->installInfoText->SetFont(pu::ui::MakeDefaultFontName(22));
+        this->installInfoText = TextBlock::New(10, 640, "");
+        this->installInfoText->SetFont(pu::ui::MakeDefaultFontName(30));
         this->installInfoText->SetColor(COLOR("#FFFFFFFF"));
         this->installBar = pu::ui::elm::ProgressBar::New(10, 680, 1260, 30, 100.0f);
         this->installBar->SetBackgroundColor(COLOR("#000000FF"));
