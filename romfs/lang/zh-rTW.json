@@ -59,6 +59,8 @@
                 "alt_name": "Google網路硬碟檔案",
                 "source_string": "來源為Google網路硬碟"
             },
+            "sd": "Free space on sd card: ",
+            "nand": "Free space on nand: ",
             "index_error": "No games found!",
             "index_error_info": "Did you type the correct URL?",
             "top_info": "選定要從伺服器安裝的檔案後，請按+鈕",

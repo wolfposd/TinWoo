@@ -2,8 +2,25 @@
 #include "ui/MainApplication.hpp"
 #include "ui/instPage.hpp"
 #include "util/config.hpp"
+#include "util/lang.hpp"
+#include <sys/statvfs.h>
+
+FsFileSystem *fs;
+FsFileSystem devices[4];
+int statvfs(const char *path, struct statvfs *buf);
+
+double GetSpace(const char* path)
+{
+  struct statvfs stat;
+  if (statvfs(path, &stat) != 0) {
+    return -1;
+  }
+  return stat.f_bsize * stat.f_bavail;
+}
 
 #define COLOR(hex) pu::ui::Color::FromHex(hex)
+
+using namespace std;
 
 namespace inst::ui {
     extern MainApplication *mainApp;
@@ -32,6 +49,12 @@ namespace inst::ui {
         this->installInfoText = TextBlock::New(10, 640, "");
         this->installInfoText->SetFont(pu::ui::MakeDefaultFontName(30));
         this->installInfoText->SetColor(COLOR("#FFFFFFFF"));
+        this->sdInfoText = TextBlock::New(10, 600, "");
+        this->sdInfoText->SetFont(pu::ui::MakeDefaultFontName(30));
+        this->sdInfoText->SetColor(COLOR("#FFFFFFFF"));
+        this->nandInfoText = TextBlock::New(10, 560, "");
+        this->nandInfoText->SetFont(pu::ui::MakeDefaultFontName(30));
+        this->nandInfoText->SetColor(COLOR("#FFFFFFFF"));
         this->installBar = pu::ui::elm::ProgressBar::New(10, 680, 1260, 30, 100.0f);
         this->installBar->SetBackgroundColor(COLOR("#000000FF"));
         this->installBar->SetProgressColor(COLOR("#565759FF"));
@@ -41,7 +64,50 @@ namespace inst::ui {
         this->Add(this->appVersionText);
         this->Add(this->pageInfoText);
         this->Add(this->installInfoText);
+        this->Add(this->sdInfoText);
+        this->Add(this->nandInfoText);
         this->Add(this->installBar);
+    }
+    
+    Result sdfreespace() {
+    	devices[0] = *fsdevGetDeviceFileSystem("sdmc");
+    	fs = &devices[0];
+    	Result rc = fsOpenSdCardFileSystem(fs);
+    	double mb = 0;
+    	if (R_FAILED(rc)) {
+    		return 0;
+    	}
+    	else {
+    		mb = (GetSpace("sdmc:/") / 1024) / 1024; //megabytes
+    		if (R_SUCCEEDED(rc)) {
+    			//do nothing - only used if we want to add logging code.
+    		}
+    		else {
+    			return 0;
+    		}
+    	}
+    	return mb;
+    }
+    
+    Result sysfreespace() {
+    	
+    	FsFileSystem nandFS;
+      Result rc = fsOpenBisFileSystem(&nandFS, FsBisPartitionId_User, "");
+      fsdevMountDevice("user", nandFS);
+      double mb = 0;
+    	if (R_FAILED(rc)) {
+      	return 0;
+      }
+      else {
+          mb = (GetSpace("user:/") / 1024) / 1024; //megabytes
+          if (R_SUCCEEDED(rc)) {
+          }
+          else {
+          	return 0;
+          }
+      }
+      fsdevUnmountDevice("user");
+      return mb;
     }
 
     void instPage::setTopInstInfoText(std::string ourText){
@@ -51,9 +117,18 @@ namespace inst::ui {
 
     void instPage::setInstInfoText(std::string ourText){
         mainApp->instpage->installInfoText->SetText(ourText);
+        //
+        std::string info = std::to_string(sdfreespace());
+        std::string message = ("inst.net.sd"_lang + info + " MB");
+        mainApp->instpage->sdInfoText->SetText(message);
+        //
+        info = std::to_string(sysfreespace());
+        message = ("inst.net.nand"_lang + info + " MB");
+        mainApp->instpage->nandInfoText->SetText(message);
+        //
         mainApp->CallForRender();
     }
-
+    
     void instPage::setInstBarPerc(double ourPercent){
         mainApp->instpage->installBar->SetVisible(true);
         mainApp->instpage->installBar->SetProgress(ourPercent);
@@ -67,6 +142,8 @@ namespace inst::ui {
     void instPage::loadInstallScreen(){
         mainApp->instpage->pageInfoText->SetText("");
         mainApp->instpage->installInfoText->SetText("");
+        mainApp->instpage->sdInfoText->SetText("");
+        mainApp->instpage->nandInfoText->SetText("");
         mainApp->instpage->installBar->SetProgress(0);
         mainApp->instpage->installBar->SetVisible(false);
         mainApp->LoadLayout(mainApp->instpage);

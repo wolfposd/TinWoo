@@ -59,6 +59,8 @@
                 "alt_name": "Googleドライブファイル",
                 "source_string": " Googleドライブから"
             },
+            "sd": "Free space on sd card: ",
+            "nand": "Free space on nand: ",
             "index_error": "No games found!",
             "index_error_info": "Did you type the correct URL?",
             "top_info": "サーバーからインストールするファイルを選択し、＋ボタンを押してください！",

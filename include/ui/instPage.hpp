@@ -11,6 +11,8 @@ namespace inst::ui {
             void onInput(u64 Down, u64 Up, u64 Held, pu::ui::TouchPoint touch_pos);
             TextBlock::Ref pageInfoText;
             TextBlock::Ref installInfoText;
+            TextBlock::Ref sdInfoText;
+            TextBlock::Ref nandInfoText;
             Image::Ref awooImage;
             pu::ui::elm::ProgressBar::Ref installBar;
             static void setTopInstInfoText(std::string ourText);
