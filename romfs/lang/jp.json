@@ -177,7 +177,7 @@
             "gay_option": "テーマを使用する",
             "useSound": "インストール時にサウンドで通知する",
             "useoldphp": "Use old php files for http server installs",
-            "usehttpkeyboard": "Use keboard during http server installs",
+            "usehttpkeyboard": "Use keyboard during http server installs",
             "sig_url": "署名パッチのソースURL: ",
             "http_url": "Http server source URL: ",
             "language": "言語: ",

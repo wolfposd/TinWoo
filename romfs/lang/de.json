@@ -177,7 +177,7 @@
             "gay_option": "Design verwenden",
             "useSound": "Nutzen von Benachrichtungstönen während Installation",
             "useoldphp": "Use old php files for http server installs",
-            "usehttpkeyboard": "Use keboard during http server installs",
+            "usehttpkeyboard": "Use keyboard during http server installs",
             "sig_url": "Signatur Patches URL: ",
             "http_url": "Http server source URL: ",
             "language": "Sprache: ",
