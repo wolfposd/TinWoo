@@ -10,6 +10,7 @@ namespace inst::ui {
             PU_SMART_CTOR(optionsPage)
             void onInput(u64 Down, u64 Up, u64 Held, pu::ui::TouchPoint touch_pos);
             static void askToUpdate(std::vector<std::string> updateInfo);
+            void setMenuText();
         private:
             TextBlock::Ref butText;
             Rectangle::Ref topRect;
@@ -19,7 +20,7 @@ namespace inst::ui {
             TextBlock::Ref appVersionText;
             TextBlock::Ref pageInfoText;
             pu::ui::elm::Menu::Ref menu;
-            void setMenuText();
+            //void setMenuText();
             std::string getMenuOptionIcon(bool ourBool);
             std::string getMenuLanguage(int ourLangCode);
     };

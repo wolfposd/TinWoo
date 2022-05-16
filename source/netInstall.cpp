@@ -293,22 +293,27 @@ namespace netInstStuff{
                 		
                 		if (inst::config::httpkeyboard) {
                 			url = inst::util::softwareKeyboard("inst.net.url.hint"_lang, inst::config::httpIndexUrl, 500);
+                			inst::config::httpIndexUrl = url;
+                    	inst::config::setConfig();
+                    	//refresh options page
+                    	inst::ui::mainApp->optionspage->setMenuText();
                 		}
                 		else {
                 			url = inst::config::httpIndexUrl;
                 		}
                 		
                     if(url == "") {
-                    	url = "http://127.0.0.1";
+                    	url = ("http://127.0.0.1");
+                    	inst::ui::mainApp->CreateShowDialog("inst.net.help.title"_lang, "inst.net.help.blank"_lang, {"common.ok"_lang}, true);
+                    	inst::config::httpIndexUrl = url;
+                    	inst::config::setConfig();
+                    	//refresh options page
+                    	inst::ui::mainApp->optionspage->setMenuText();
+                    	 	 
                     }
                     
                     else {
-                    	
-                    	inst::config::httpIndexUrl = url;
-                    	inst::config::setConfig();
-                    
-
-                      std::string response;
+                    	std::string response;
                       if (inst::util::formatUrlString(url) == "" || url == "https://" || url == "http://")
                           inst::ui::mainApp->CreateShowDialog("inst.net.url.invalid"_lang, "", {"common.ok"_lang}, false);
                       else {
