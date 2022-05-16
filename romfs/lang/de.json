@@ -125,6 +125,7 @@
             "desc0": " Dateien erfolgreich installiert!",
             "desc1": " installiert!",
             "downloading": "Lädt ",
+            "queue": "Files in queue: ",
             "at": " herunter von "
         },
         "nca_verify": {

@@ -125,6 +125,7 @@
             "desc0": " файлы успешно установлены!",
             "desc1": " установлен!",
             "downloading": "Загружаем ",
+            "queue": "Files in queue: ",
             "at": " в "
         },
         "nca_verify": {

@@ -125,6 +125,7 @@
             "desc0": " ファイルが正常にインストールされました!",
             "desc1": " インストール完了!",
             "downloading": "ダウンロード中 ",
+            "queue": "Files in queue: ",
             "at": " に "
         },
         "nca_verify": {

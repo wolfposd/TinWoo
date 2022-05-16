@@ -13,10 +13,12 @@ namespace inst::ui {
             TextBlock::Ref installInfoText;
             TextBlock::Ref sdInfoText;
             TextBlock::Ref nandInfoText;
+            TextBlock::Ref countText;
             Image::Ref awooImage;
             pu::ui::elm::ProgressBar::Ref installBar;
             static void setTopInstInfoText(std::string ourText);
             static void setInstInfoText(std::string ourText);
+            static void filecount(std::string ourText);
             static void setInstBarPerc(double ourPercent);
             static void loadMainMenu();
             static void loadInstallScreen();

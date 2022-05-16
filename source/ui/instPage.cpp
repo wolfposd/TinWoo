@@ -55,6 +55,11 @@ namespace inst::ui {
         this->nandInfoText = TextBlock::New(10, 560, "");
         this->nandInfoText->SetFont(pu::ui::MakeDefaultFontName(30));
         this->nandInfoText->SetColor(COLOR("#FFFFFFFF"));
+        
+        this->countText = TextBlock::New(10, 520, "");
+        this->countText->SetFont(pu::ui::MakeDefaultFontName(30));
+        this->countText->SetColor(COLOR("#FFFFFFFF"));
+        
         this->installBar = pu::ui::elm::ProgressBar::New(10, 680, 1260, 30, 100.0f);
         this->installBar->SetBackgroundColor(COLOR("#000000FF"));
         this->installBar->SetProgressColor(COLOR("#565759FF"));
@@ -66,6 +71,7 @@ namespace inst::ui {
         this->Add(this->installInfoText);
         this->Add(this->sdInfoText);
         this->Add(this->nandInfoText);
+        this->Add(this->countText);
         this->Add(this->installBar);
     }
     
@@ -114,6 +120,11 @@ namespace inst::ui {
         mainApp->instpage->pageInfoText->SetText(ourText);
         mainApp->CallForRender();
     }
+    
+    void instPage::filecount(std::string ourText){
+        mainApp->instpage->countText->SetText(ourText);
+        mainApp->CallForRender();
+    }
 
     void instPage::setInstInfoText(std::string ourText){
         mainApp->instpage->installInfoText->SetText(ourText);
@@ -144,6 +155,7 @@ namespace inst::ui {
         mainApp->instpage->installInfoText->SetText("");
         mainApp->instpage->sdInfoText->SetText("");
         mainApp->instpage->nandInfoText->SetText("");
+        mainApp->instpage->countText->SetText("");
         mainApp->instpage->installBar->SetProgress(0);
         mainApp->instpage->installBar->SetVisible(false);
         mainApp->LoadLayout(mainApp->instpage);
