@@ -62,7 +62,7 @@
             "sd": "Free space on sd card: ",
             "nand": "Free space on nand: ",
             "index_error": "No games found!",
-            "index_error_info": "Did you type the correct URL?",
+            "index_error_info": "Did you enter the correct HTTP server source URL in the config page?",
             "top_info": "Выберите какие файлы вы хотите установить из сервера и нажмите \"+\"!",
             "top_info1": "Ожидание подключения... IP-адрес вашего Switch: ",
             "failed": "Не удалось выполнить установку из удалённого источника!",
@@ -175,7 +175,9 @@
             "gay_option": "Использовать тему",
             "useSound": "Use sound notifications during installs",
             "useoldphp": "Use old php files for http server installs",
+            "usehttpkeyboard": "Use keboard during http server installs",
             "sig_url": "URL для скачивания Signature patches: ",
+            "http_url": "Http server source URL: ",
             "language": "Язык: ",
             "check_update": "Проверить наличие обновлений TinWoo Installer",
             "credits": "Благодарности"

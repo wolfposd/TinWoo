@@ -62,7 +62,7 @@
             "sd": "Free space on sd card: ",
             "nand": "Free space on nand: ",
             "index_error": "No games found!",
-            "index_error_info": "Did you type the correct URL?",
+            "index_error_info": "Did you enter the correct HTTP server source URL in the config page?",
             "top_info": "サーバーからインストールするファイルを選択し、＋ボタンを押してください！",
             "top_info1": "接続を待機しています...スイッチのIPアドレスは次のとおりです。: ",
             "failed": "リモートインストールを実行できませんでした！",
@@ -175,7 +175,9 @@
             "gay_option": "テーマを使用する",
             "useSound": "インストール時にサウンドで通知する",
             "useoldphp": "Use old php files for http server installs",
+            "usehttpkeyboard": "Use keboard during http server installs",
             "sig_url": "署名パッチのソースURL: ",
+            "http_url": "Http server source URL: ",
             "language": "言語: ",
             "check_update": "TinWoo Installerのアップデートを確認",
             "credits": "クレジット"

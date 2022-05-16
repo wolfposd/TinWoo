@@ -289,7 +289,15 @@ namespace netInstStuff{
                 }
                 
                 if (kDown & HidNpadButton_Minus) {
-                    std::string url = inst::util::softwareKeyboard("inst.net.url.hint"_lang, inst::config::httpIndexUrl, 500);
+                		std::string url;
+                		
+                		if (inst::config::httpkeyboard) {
+                			url = inst::util::softwareKeyboard("inst.net.url.hint"_lang, inst::config::httpIndexUrl, 500);
+                		}
+                		else {
+                			url = inst::config::httpIndexUrl;
+                		}
+                		
                     if(url == "") {
                     	url = "http://127.0.0.1";
                     }

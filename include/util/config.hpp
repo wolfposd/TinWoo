@@ -5,7 +5,7 @@
 namespace inst::config {
     static const std::string appDir = "sdmc:/switch/tinwoo";
     static const std::string configPath = appDir + "/config.json";
-    static const std::string appVersion = "1.0.8";
+    static const std::string appVersion = "1.0.10";
 
     extern std::string gAuthKey;
     extern std::string sigPatchesUrl;
@@ -22,6 +22,7 @@ namespace inst::config {
     extern bool gayMode;
     extern bool useSound;
     extern bool useoldphp;
+    extern bool httpkeyboard;
 
     void setConfig();
     void parseConfig();

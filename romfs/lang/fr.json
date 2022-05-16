@@ -62,7 +62,7 @@
             "sd": "Free space on sd card: ",
             "nand": "Free space on nand: ",
             "index_error": "No games found!",
-            "index_error_info": "Did you type the correct URL?",
+            "index_error_info": "Did you enter the correct HTTP server source URL in the config page?",
             "top_info": "Sélectionnez les fichiers que vous voulez installer à partir du serveur, puis appuyez sur le bouton Plus !",
             "top_info1": "En attente d'une connexion... L'adresse IP de votre switch est : ",
             "failed": "Echec de l'installation à distance !",
@@ -175,7 +175,9 @@
             "gay_option": "Utiliser le thème",
             "useSound": "Use sound notifications during installs",
             "useoldphp": "Use old php files for http server installs",
+            "usehttpkeyboard": "Use keboard during http server installs",
             "sig_url": "Patchs de signatures URL: ",
+            "http_url": "Http server source URL: ",
             "language": "Langage: ",
             "check_update": "Vérifiez les mises à jour de l'installateur TinWoo",
             "credits": "Crédits"

@@ -32,12 +32,12 @@ namespace inst::ui {
 			else this->titleImage = Image::New(0, 0, "romfs:/images/Settings.png");
 			if (std::filesystem::exists(inst::config::appDir + "/images/Background.png")) this->SetBackgroundImage(inst::config::appDir + "/images/Background.png");
 			else this->SetBackgroundImage("romfs:/images/Background.png");
-            this->appVersionText = TextBlock::New(1210, 680, "v" + inst::config::appVersion);
+            this->appVersionText = TextBlock::New(1200, 680, "v" + inst::config::appVersion);
         }
      else {
 			this->SetBackgroundImage("romfs:/images/Background.png");
             this->titleImage = Image::New(0, 0, "romfs:/images/Settings.png");
-            this->appVersionText = TextBlock::New(1210, 680, "v" + inst::config::appVersion);
+            this->appVersionText = TextBlock::New(1200, 680, "v" + inst::config::appVersion);
         }
         this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
         this->appVersionText->SetFont(pu::ui::MakeDefaultFontName(20));
@@ -148,6 +148,11 @@ namespace inst::ui {
         useoldphp->SetIcon(this->getMenuOptionIcon(inst::config::useoldphp));
         this->menu->AddItem(useoldphp);
         
+        auto httpkeyboard = pu::ui::elm::MenuItem::New("options.menu_items.usehttpkeyboard"_lang);
+        httpkeyboard->SetColor(COLOR("#FFFFFFFF"));
+        httpkeyboard->SetIcon(this->getMenuOptionIcon(inst::config::httpkeyboard));
+        this->menu->AddItem(httpkeyboard);
+        
         auto SigPatch = pu::ui::elm::MenuItem::New("main.menu.sig"_lang);
         SigPatch->SetColor(COLOR("#FFFFFFFF"));
         this->menu->AddItem(SigPatch);
@@ -155,6 +160,11 @@ namespace inst::ui {
         auto sigPatchesUrlOption = pu::ui::elm::MenuItem::New("options.menu_items.sig_url"_lang + inst::util::shortenString(inst::config::sigPatchesUrl, 42, false));
         sigPatchesUrlOption->SetColor(COLOR("#FFFFFFFF"));
         this->menu->AddItem(sigPatchesUrlOption);
+        
+        auto httpServerUrlOption = pu::ui::elm::MenuItem::New("options.menu_items.http_url"_lang + inst::util::shortenString(inst::config::httpIndexUrl, 42, false));
+        httpServerUrlOption->SetColor(COLOR("#FFFFFFFF"));
+        this->menu->AddItem(httpServerUrlOption);  
+        
         auto languageOption = pu::ui::elm::MenuItem::New("options.menu_items.language"_lang + this->getMenuLanguage(inst::config::languageSetting));
         languageOption->SetColor(COLOR("#FFFFFFFF"));
         this->menu->AddItem(languageOption);
@@ -194,7 +204,7 @@ namespace inst::ui {
               std::vector<std::string> languageList;
               int index = this->menu->GetSelectedIndex();
               switch (index) {
-              		 case 0:
+                  case 0:
                       inst::config::ignoreReqVers = !inst::config::ignoreReqVers;
                       inst::config::setConfig();
                       this->setMenuText();
@@ -256,7 +266,7 @@ namespace inst::ui {
                       inst::config::setConfig();
                       break;
                  
-                 case 7:
+                  case 7:
                       if (inst::config::useoldphp) {
                           inst::config::useoldphp = false;
                       }
@@ -269,10 +279,22 @@ namespace inst::ui {
                       break;
                   
                   case 8:
-                      sigPatchesMenuItem_Click();
+                      if (inst::config::httpkeyboard) {
+                          inst::config::httpkeyboard = false;
+                      }
+                      else {
+                          inst::config::httpkeyboard = true;
+                      }
+                      this->setMenuText();
+                      this->menu->SetSelectedIndex(index);
+                      inst::config::setConfig();
                       break;
                   
                   case 9:
+                      sigPatchesMenuItem_Click();
+                      break;
+                  
+                  case 10:
                       keyboardResult = inst::util::softwareKeyboard("options.sig_hint"_lang, inst::config::sigPatchesUrl.c_str(), 500);
                       if (keyboardResult.size() > 0) {
                           inst::config::sigPatchesUrl = keyboardResult;
@@ -281,7 +303,18 @@ namespace inst::ui {
                           this->menu->SetSelectedIndex(index);
                       }
                       break;
-                  case 10:
+                  
+                  case 11:
+                      keyboardResult = inst::util::softwareKeyboard("inst.net.url.hint"_lang, inst::config::httpIndexUrl.c_str(), 500);
+                      if (keyboardResult.size() > 0) {
+                          inst::config::httpIndexUrl = keyboardResult;
+                          inst::config::setConfig();
+                          this->setMenuText();
+                          this->menu->SetSelectedIndex(index);
+                      }
+                      break;
+                  
+                  case 12:
                       languageList = languageStrings;
                       languageList.push_back("options.language.system_language"_lang);
                       rc = inst::ui::mainApp->CreateShowDialog("options.language.title"_lang, "options.language.desc"_lang, languageList, false);
@@ -315,7 +348,7 @@ namespace inst::ui {
                       mainApp->FadeOut();
                       mainApp->Close();
                       break;
-                  case 11:
+                  case 13:
                       if (inst::util::getIPAddress() == "1.0.0.127") {
                           inst::ui::mainApp->CreateShowDialog("main.net.title"_lang, "main.net.desc"_lang, {"common.ok"_lang}, true);
                           break;
@@ -327,7 +360,7 @@ namespace inst::ui {
                       }
                       this->askToUpdate(downloadUrl);
                       break;
-                  case 12:
+                  case 14:
                       inst::ui::mainApp->CreateShowDialog("options.credits.title"_lang, "options.credits.desc"_lang, {"common.close"_lang}, true);
                       break;
                   default:

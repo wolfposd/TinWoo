@@ -62,7 +62,7 @@
             "sd": "Free space on sd card: ",
             "nand": "Free space on nand: ",
             "index_error": "No games found!",
-            "index_error_info": "Did you type the correct URL?",
+            "index_error_info": "Did you enter the correct HTTP server source URL in the config page?",
             "top_info": "Seleziona quali file vuoi installare dal server, poi premi il tasto Più!",
             "top_info1": "Aspettando una connnessione... L'indirizzo IP è: ",
             "failed": "Impossibile eseguire l'installazione remota!",
@@ -175,7 +175,9 @@
             "gay_option": "Usa tema",
             "useSound": "Use sound notifications during installs",
             "useoldphp": "Use old php files for http server installs",
+            "usehttpkeyboard": "Use keboard during http server installs",
             "sig_url": "Fonte URL SigPatches: ",
+            "http_url": "Http server source URL: ",
             "language": "Lingua: ",
             "check_update": "Controlla aggiornamenti di TinWoo Installer ora",
             "credits": "Crediti"
