@@ -67,7 +67,10 @@ namespace nspInstStuff {
 
         try
         {
+        		int togo = ourTitleList.size();
             for (titleItr = 0; titleItr < ourTitleList.size(); titleItr++) {
+            		auto s = std::to_string(togo);
+            		inst::ui::instPage::filecount("inst.info_page.queue"_lang + s);
                 inst::ui::instPage::setTopInstInfoText("inst.info_page.top_info0"_lang + inst::util::shortenString(ourTitleList[titleItr].filename().string(), 40, true) + "inst.sd.source_string"_lang);
                 std::unique_ptr<tin::install::Install> installTask;
 
@@ -84,7 +87,10 @@ namespace nspInstStuff {
                 inst::ui::instPage::setInstBarPerc(0);
                 installTask->Prepare();
                 installTask->Begin();
+                togo = (togo-1);
             }
+            
+            inst::ui::instPage::filecount("inst.info_page.queue"_lang + "0");
         }
         catch (std::exception& e)
         {

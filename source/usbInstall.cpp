@@ -117,7 +117,10 @@ namespace usbInstStuff {
         }
 
         try {
+        		int togo = ourTitleList.size();
             for (fileItr = 0; fileItr < ourTitleList.size(); fileItr++) {
+            		auto s = std::to_string(togo);
+            		inst::ui::instPage::filecount("inst.info_page.queue"_lang + s);
                 inst::ui::instPage::setTopInstInfoText("inst.info_page.top_info0"_lang + fileNames[fileItr] + "inst.usb.source_string"_lang);
                 std::unique_ptr<tin::install::Install> installTask;
 
@@ -133,9 +136,11 @@ namespace usbInstStuff {
                 inst::ui::instPage::setInstInfoText("inst.info_page.preparing"_lang);
                 inst::ui::instPage::setInstBarPerc(0);
                 installTask->Prepare();
-
                 installTask->Begin();
+                togo = (togo-1);
             }
+            
+            inst::ui::instPage::filecount("inst.info_page.queue"_lang + "0");
         }
         catch (std::exception& e) {
             LOG_DEBUG("Failed to install");

@@ -142,9 +142,9 @@ namespace netInstStuff{
         		int togo = ourUrlList.size();
             for (urlItr = 0; urlItr < ourUrlList.size(); urlItr++) {
             		auto s = std::to_string(togo);
+            		inst::ui::instPage::filecount("inst.info_page.queue"_lang + s);
             		LOG_DEBUG("%s %s\n", "Install request from", ourUrlList[urlItr].c_str());
                 inst::ui::instPage::setTopInstInfoText("inst.info_page.top_info0"_lang + urlNames[urlItr] + ourSource);
-                inst::ui::instPage::filecount("inst.info_page.queue"_lang + s);
                 std::unique_ptr<tin::install::Install> installTask;
 
                 if (inst::curl::downloadToBuffer(ourUrlList[urlItr], 0x100, 0x103) == "HEAD") {
